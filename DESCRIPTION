@@ -12,3 +12,5 @@ RoxygenNote: 5.0.1
 VignetteBuilder: knitr
 Suggests: knitr,
     rmarkdown
+URL: http://github.com/ick003/GPspt
+BugReports: http://github.com/ick003/GPspt/issues
