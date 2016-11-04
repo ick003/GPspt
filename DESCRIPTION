@@ -1,0 +1,14 @@
+Package: GPspt
+Title: Using Gaussian process models for spatio-temporal data
+Version: 0.0.0.9000
+Authors@R: person("Adrien", "Ickowicz", email = "adrien.ickowicz@csiro.au", role = c("aut", "cre"))
+Description: GPspt provides multiple gaussian process models to fit spatio-temporal data.
+Depends:
+    R (>= 3.3.1), MASS, knitr
+License: GPL-2
+LazyData: LazyData: true
+Encoding: UTF-8
+RoxygenNote: 5.0.1
+VignetteBuilder: knitr
+Suggests: knitr,
+    rmarkdown
