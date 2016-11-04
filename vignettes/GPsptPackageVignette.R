@@ -75,3 +75,55 @@ points(obs, col="red",pch=16)
 points(pred, col="blue",pch=16, cex=0.5)
 segments(obs$x, obs$y, pred$x, pred$y)
 
+## ------------------------------------------------------------------------
+kernelList = list(k_longterm, k_spatial_iso)
+attr(kernelList, "name") <- c("temporal", "spatial")
+attr(kernelList, "parameters") <- list(c("q1","q2"), c("s1", "s2"))
+attr(kernelList, "type") <- c("temporal", "spatial")
+thetaInit = c(log(0.54),log(2.17), log(0.28), log(6.70), log(0.5))
+t  = matrix(rep(seq(1,6,length.out = 6),25), ncol = 1)
+s = expand.grid(seq(1,10,length.out=5), seq(1,10,length.out = 5))
+s = s[rep(1:nrow(s),each = 6),]
+y = cos(2*pi*t/5) + exp(-1/25*((s[,1]-5)^2 + (s[,2]-5)^2))
+xList = list(t,s)
+wrap_ll(thetaInit, y = y, kernelList = kernelList, xList = xList)
+res = optifix(thetaInit, fixed = c(FALSE, TRUE, FALSE, TRUE,FALSE),fn = wrap_ll, y=y, kernel = kernelList, x=xList,  control = list(fnscale = -1, maxit = 10000), method = "Nelder-Mead")
+param = parToList(res$fullpar, kernelList)
+
+## ------------------------------------------------------------------------
+tPred = matrix(rep(seq(1,6,length.out = 60),400), ncol = 1)
+sPred = expand.grid(seq(1,10,length.out=20), seq(1,10,length.out = 20))
+sPred = sPred[rep(1:nrow(sPred),each = 60),]
+
+# Plot a temporal prediction at a precise location s = (3.25,1)
+ds = (s[,1] - 3.25)^2 +  (s[,2] - 1)^2; dsP = (sPred[,1] - 3.25)^2 +  (sPred[,2] - 1)^2
+idx.s = which(ds == ds[which.min(ds)])
+idx.sP = which(dsP == dsP[which.min(dsP)])
+
+xPred = list(matrix(tPred[idx.sP],ncol=1), sPred[idx.sP,])
+
+tt = GPpred(xPred, xList,y, param, kernelList)
+par(mfrow = c(1,1))
+CI =  c(tt$mp -1.96*sqrt(diag(tt$sp)), rev(tt$mp +1.96*sqrt(diag(tt$sp))))
+plot(xPred[[1]], tt$mp, type = "l", col = "blue", xlab = "x", ylab = "f(x)", ylim = range(CI))
+points(t[idx.s],y[idx.s], col="red", pch = 3)
+polygon(c(xPred[[1]], rev(xPred[[1]])),CI, col = "lightgrey", density = 30)
+
+# Plot a spatial prediction at a particular time t = 3
+ts = (t - 3)^2; tsP = (tPred - 3)^2
+idx.s = which(ts == ts[which.min(ts)])
+idx.sP = which(tsP == tsP[which.min(tsP)])
+par(mfrow = c(1,1), mar = c(5,4,4,2))
+xPred = list(matrix(tPred[idx.sP],ncol=1), sPred[idx.sP,])
+tt = GPpred(xPred, xList,y, param, kernelList)
+
+xPred2 =  list(matrix(t[idx.s],ncol=1), s[idx.s,])
+tt2 = GPpred(xPred2, xList,y, param, kernelList)
+
+p <- persp(x =seq(1,10,length.out=20) , y=seq(1,10,length.out=20) , z=matrix(tt$mp, ncol=20), phi = 30, theta=40, xlab = "x", ylab = "y", zlab = "z",col="lightblue",expand = 0.5,shade = 0.2)
+obs <- trans3d(xList[[2]][idx.s,1], xList[[2]][idx.s,2],y[idx.s],p)
+pred <- trans3d(xPred2[[2]][,1], xPred2[[2]][,2],tt2$mp,p)
+points(obs, col="red",pch=16)
+points(pred, col="blue",pch=16, cex=0.5)
+segments(obs$x, obs$y, pred$x, pred$y)
+
