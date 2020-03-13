@@ -30,4 +30,3 @@ persp(matrix(K[,3], ncol=11))
 \keyword{Gaussian}
 \keyword{likelihood}
 \keyword{process}
-

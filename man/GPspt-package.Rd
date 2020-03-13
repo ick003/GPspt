@@ -8,4 +8,15 @@
 \description{
 GPspt allows you to model spatio-temporal data with Gaussian process models
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{http://github.com/ick003/GPspt}
+  \item Report bugs at \url{http://github.com/ick003/GPspt/issues}
+}
 
+}
+\author{
+\strong{Maintainer}: Adrien Ickowicz \email{adrien.ickowicz@csiro.au}
+
+}

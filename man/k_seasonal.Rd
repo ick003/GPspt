@@ -24,4 +24,3 @@ k = outer(t,t, k_seasonal, param = param)
 \keyword{Gaussian}
 \keyword{kernel}
 \keyword{process}
-

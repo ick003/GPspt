@@ -4,9 +4,18 @@
 \alias{optifix}
 \title{Optimise with fixed parameters}
 \usage{
-optifix(par, fixed, fn, gr = NULL, ..., method = c("Nelder-Mead", "BFGS",
-  "CG", "L-BFGS-B", "SANN"), lower = -Inf, upper = Inf, control = list(),
-  hessian = FALSE)
+optifix(
+  par,
+  fixed,
+  fn,
+  gr = NULL,
+  ...,
+  method = c("Nelder-Mead", "BFGS", "CG", "L-BFGS-B", "SANN"),
+  lower = -Inf,
+  upper = Inf,
+  control = list(),
+  hessian = FALSE
+)
 }
 \arguments{
 \item{par}{paramters}
@@ -41,4 +50,3 @@ opt = optifix(th,fixed = c(TRUE, FALSE, FALSE), fn = fn, method = "Nelder-Mead")
 \keyword{optimization}
 \keyword{values.}
 \keyword{with}
-

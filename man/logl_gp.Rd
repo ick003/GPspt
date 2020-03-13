@@ -30,4 +30,3 @@ ll = logl_gp(paramList, y, kernelList,xList)
 \keyword{Gaussian}
 \keyword{likelihood}
 \keyword{process}
-

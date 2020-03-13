@@ -29,4 +29,3 @@ image(matrix(tt$f, ncol = 10,byrow=TRUE))
 }
 \keyword{Gaussian}
 \keyword{process}
-

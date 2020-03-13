@@ -28,4 +28,3 @@ k = matrix(apply(xdd,1, function(x) k_spatial_matern(x[1:2],x[3:4],param = param
 \keyword{Gaussian}
 \keyword{kernel}
 \keyword{process}
-

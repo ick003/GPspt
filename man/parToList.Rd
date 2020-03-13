@@ -24,4 +24,3 @@ res = parToList(theta, kernelList)
 \keyword{Gaussian}
 \keyword{process}
 \keyword{wrapper}
-

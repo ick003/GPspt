@@ -33,4 +33,3 @@ ll = wrap_ll(theta, y, kernelList,xList)
 \keyword{likelihood}
 \keyword{process}
 \keyword{wrapper}
-

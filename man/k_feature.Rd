@@ -28,4 +28,3 @@ k = matrix(kern, ncol = nrow(f))
 \keyword{Gaussian}
 \keyword{kernel}
 \keyword{process}
-
